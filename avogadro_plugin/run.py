@@ -1,10 +1,12 @@
+import importlib
 import json
+import os
 import sys
 
 import click
 
 @click.command()
-@click.parameter('command_module')
+@click.argument('command_module')
 @click.option('--print-dialog/--run-transformation', default=False)
 @click.option('--language', default='en.us', help="preferred language to use")
 def run(command_module, print_dialog, language):
@@ -29,7 +31,9 @@ def run(command_module, print_dialog, language):
     structure = input_json['cjson']
     options = input_json['options']
 
-    plugin = importlib.import_module(command_module)
+    # since this will be run from the plugin's directory, add the current directory to the path
+    sys.path.append(os.getcwd())
+    plugin = __import__(command_module)
     status = 0
     if print_dialog:
         results = plugin.get_dialog_options(structure, options)

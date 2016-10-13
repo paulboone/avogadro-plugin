@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-venv/bin/python3 $*
+
+avogadro_script_path=`which avogadro-plugin-python-run-command`
+venv/bin/python3 $avogadro_script_path $*
