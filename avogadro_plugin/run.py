@@ -29,15 +29,20 @@ def run(command_module, print_dialog, language):
     input_stream = click.get_text_stream('stdin').read()
     input_json = json.loads(input_stream)
     structure = input_json['cjson']
-    options = input_json['options']
+
 
     # since this will be run from the plugin's directory, add the current directory to the path
     sys.path.append(os.getcwd())
     plugin = __import__(command_module)
     status = 0
     if print_dialog:
+        if 'options' in input_json:
+            options = input_json['options']
+        else:
+            options = {}
         results = plugin.get_dialog_options(structure, options)
     else:
+        options = input_json['options']
         status, results = plugin.run_transformation(structure, options)
 
     # marshal to json and return across stdout
