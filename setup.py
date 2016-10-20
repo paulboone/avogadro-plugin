@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name="avogadro-plugin",
     version="0.1",
-    install_requires=[],
+    install_requires=['click'],
     include_package_data=True,
     packages=find_packages(),
     scripts=['avogadro-plugin-python-run'],
