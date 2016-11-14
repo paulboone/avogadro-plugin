@@ -1,17 +1,31 @@
+
 rcov = [0, 0.38, 0.32, 1.34, 0.90, 0.82, 0.77, 0.75, 0.73, 0.71, 0.69, 1.54, 1.30, 1.18, 1.11]
 
-
+RADIUS_BUFFER = 0.45
 
 def extrapolate_bonds(atoms):
     bonds = []
-    for i in range(0, len(atoms)):
-        for j in range(i + 1, len(atoms)):
-            distance = ((atoms[j][0] - atoms[i][0])**2 +
-                        (atoms[j][1] - atoms[i][1])**2 +
-                        (atoms[j][2] - atoms[i][2])**2 ) ** 0.5
 
-            max_bond_distance = (rcov[atoms[i][3]] + rcov[atoms[j][3]] + 0.45)
+    atoms_z = list(enumerate(atoms))
+    print(atoms_z)
+    atoms_z = sorted(atoms_z, key=lambda x: x[1][2])
+
+    max_rad = max([ rcov[a[1][3]] for a in atoms_z ])
+
+    for i in range(0, len(atoms_z)):
+        max_cutoff = rcov[atoms_z[i][1][3]] + max_rad + RADIUS_BUFFER
+        print(i)
+        for j in range(i + 1, len(atoms_z)):
+            distance = ((atoms_z[j][1][0] - atoms_z[i][1][0])**2 +
+                        (atoms_z[j][1][1] - atoms_z[i][1][1])**2 +
+                        (atoms_z[j][1][2] - atoms_z[i][1][2])**2 ) ** 0.5
+
+            if abs(atoms_z[j][1][2] - atoms_z[i][1][2]) > max_cutoff:
+                print(distance, max_cutoff)
+                break
+
+            max_bond_distance = (rcov[atoms_z[i][1][3]] + rcov[atoms_z[j][1][3]] + RADIUS_BUFFER)
             if distance >= 0.16 and distance <= max_bond_distance:
-                bonds.append((i,j))
+                bonds.append((atoms_z[i][0],atoms_z[j][0]))
 
     return bonds
