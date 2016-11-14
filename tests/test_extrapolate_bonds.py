@@ -12,23 +12,23 @@ def test_atoms_at_0_16_angstrom_should_be_bonded():
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 1
 
-def test_h_atoms_at_lte_1_21_angstrom_should_be_bonded():
-    atoms = [(0.0, 0.0, 0.0, 1), (0.0, 0.0, 1.21, 1)]
+def test_h_atoms_at_lte_1_09_angstrom_should_be_bonded():
+    atoms = [(0.0, 0.0, 0.0, 1), (0.0, 0.0, 1.09, 1)]
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 1
 
-def test_h_atoms_at_gt_1_21_angstrom_should_not_be_bonded():
-    atoms = [(0.0, 0.0, 0.0, 1), (0.0, 0.0, 1.22, 1)]
+def test_h_atoms_at_gt_1_09_angstrom_should_not_be_bonded():
+    atoms = [(0.0, 0.0, 0.0, 1), (0.0, 0.0, 1.10, 1)]
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 0
 
-def test_si_atoms_at_lte_2_67_angstrom_should_be_bonded():
-    atoms = [(0.0, 0.0, 0.0, 14), (0.0, 0.0, 2.67, 14)]
+def test_si_atoms_at_lte_2_77_angstrom_should_be_bonded():
+    atoms = [(0.0, 0.0, 0.0, 14), (0.0, 0.0, 2.77, 14)]
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 1
 
-def test_si_atoms_at_gt_2_67_angstrom_should_not_be_bonded():
-    atoms = [(0.0, 0.0, 0.0, 14), (0.0, 0.0, 2.68, 14)]
+def test_si_atoms_at_gt_2_77_angstrom_should_not_be_bonded():
+    atoms = [(0.0, 0.0, 0.0, 14), (0.0, 0.0, 2.78, 14)]
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 0
 
