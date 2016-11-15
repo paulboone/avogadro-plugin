@@ -51,7 +51,7 @@ def extrapolate_bonds(atoms):
 
             max_bond_distance = (rcov[atoms_z[i][1][3]] + rcov[atoms_z[j][1][3]] + RADIUS_BUFFER)
             if distance >= 0.16 and distance <= max_bond_distance:
-                bonds.append(frozenset({atoms_z[i][0],atoms_z[j][0]}))
+                bonds.append((atoms_z[i][0],atoms_z[j][0]))
 
     return bonds
 
@@ -66,5 +66,5 @@ def cjson_get_atoms(cjson):
 def cjson_get_bonds(cjson):
     bonds_json = cjson["bonds"]["connections"]["index"]
 
-    bonds = [ frozenset(bonds_json[i*2:(i+1)*2]) for i in range(0, int(len(bonds_json) / 2)) ]
+    bonds = [ (bonds_json[i*2:(i+1)*2]) for i in range(0, int(len(bonds_json) / 2)) ]
     return bonds

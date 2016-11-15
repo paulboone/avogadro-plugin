@@ -11,13 +11,13 @@ def test_atoms_at_0_16_angstrom_should_be_bonded():
     atoms = [(0.0, 0.0, 0.0, 1), (0.0, 0.0, 0.16, 1)]
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 1
-    assert bonds == [frozenset({0,1})]
+    assert bonds == [(0,1)]
 
 def test_h_atoms_at_lte_1_09_angstrom_should_be_bonded():
     atoms = [(0.0, 0.0, 0.0, 1), (0.0, 0.0, 1.09, 1)]
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 1
-    assert bonds == [frozenset({0,1})]
+    assert bonds == [(0,1)]
 
 def test_h_atoms_at_gt_1_09_angstrom_should_not_be_bonded():
     atoms = [(0.0, 0.0, 0.0, 1), (0.0, 0.0, 1.10, 1)]
@@ -28,7 +28,7 @@ def test_si_atoms_at_lte_2_77_angstrom_should_be_bonded():
     atoms = [(0.0, 0.0, 0.0, 14), (0.0, 0.0, 2.77, 14)]
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 1
-    assert bonds == [frozenset({0,1})]
+    assert bonds == [(0,1)]
 
 def test_si_atoms_at_gt_2_77_angstrom_should_not_be_bonded():
     atoms = [(0.0, 0.0, 0.0, 14), (0.0, 0.0, 2.78, 14)]
@@ -49,13 +49,14 @@ def test_ethane_should_have_seven_bonds():
     bonds = extrapolate_bonds(atoms)
     assert len(bonds) == 7
 
-    expected_bonds = [{0, 1},
-                      {1, 2},
-                      {1, 3},
-                      {1, 4},
-                      {4, 5},
-                      {4, 6},
-                      {4, 7}]
+    expected_bonds = [(0, 1),
+                      (1, 2),
+                      (1, 3),
+                      (1, 4),
+                      (4, 5),
+                      (4, 6),
+                      (4, 7)]
     expected_bonds = { frozenset(s) for s in expected_bonds }
+    bonds = { frozenset(s) for s in bonds }
 
-    assert len(expected_bonds ^ set(bonds)) == 0
+    assert len(expected_bonds ^ bonds) == 0

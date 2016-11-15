@@ -18,5 +18,7 @@ def test_extrapolate_bonds_on_cjson_file(cjson_file):
     bonds = cjson_get_bonds(cjson)
 
     bonds_ext = extrapolate_bonds(atoms)
+    bonds_ext = { frozenset(s) for s in bonds_ext }
+    bonds = { frozenset(s) for s in bonds }
 
-    assert len(set(bonds) ^ set(bonds_ext)) == 0
+    assert len(bonds ^ bonds_ext) == 0
