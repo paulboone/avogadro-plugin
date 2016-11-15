@@ -54,6 +54,5 @@ def test_ethane_should_have_seven_bonds():
                       {4, 6},
                       {4, 7}]
     expected_bonds = { frozenset(s) for s in expected_bonds }
-    bonds = { frozenset(s) for s in bonds }
 
-    assert len(expected_bonds ^ bonds) == 0
+    assert len(expected_bonds ^ set(bonds)) == 0
