@@ -5,7 +5,6 @@ from avogadro_plugin.utils import cjson_get_atoms, cjson_get_bonds
 
 ethane_cjson = json.loads("""
 {
-  "cjson": {
     "chemical json": 0,
     "name": "ethane",
     "inchi": "1/C2H6/c1-2/h1-2H3",
@@ -42,7 +41,6 @@ ethane_cjson = json.loads("""
       "melting point": -172,
       "boiling point": -88
     }
-  }
 }
 """)
 
