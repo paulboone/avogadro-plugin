@@ -3,8 +3,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="avogadro-plugin",
-    version="0.1",
-    install_requires=['click'],
+    version="0.2",
+    install_requires=[],
     include_package_data=True,
     packages=find_packages(),
     scripts=['avogadro-plugin-python-run'],
